@@ -1,16 +1,29 @@
 var Profile = require("./profile.js");
 var renderer = require("./renderer.js");
+var querystring = require("querystring");
+
+var commonHeaders = { "Content-Type": "text/html" };
 
 //
 // Handle http route GET / and POST / i.e. Home
 
 function home(request, response) {
   if (request.url == "/") {
-    response.writeHead(200, { "Content-Type": "text/plain" });
-    renderer.view("header", {}, response);
-    renderer.view("search", {}, response);
-    renderer.view("footer", {}, response);
-    response.end();
+    if (request.method.toLowerCase() === "get") {
+      response.writeHead(200, commonHeaders);
+      renderer.view("header", {}, response);
+      renderer.view("search", {}, response);
+      renderer.view("footer", {}, response);
+      response.end();
+    }
+
+    if (request.method.toLowerCase() === "post") {
+      request.on("data", function(postBody) {
+        var query = querystring.parse(postBody.toString());
+        response.writeHead(303, { Location: "/" + query.username });
+        response.end();
+      });
+    }
   }
 }
 
@@ -20,7 +33,7 @@ function home(request, response) {
 function user(request, response) {
   var username = request.url.replace("/", "");
   if (username.length > 0) {
-    response.writeHead(200, { "Content-Type": "text/plain" });
+    response.writeHead(200, commonHeaders);
     renderer.view("header", {}, response);
 
     var studentProfile = new Profile(username);
