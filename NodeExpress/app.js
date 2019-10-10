@@ -11,7 +11,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/cards", (req, res) => {
-  res.render("card", { prompt: "Who is burried", hint: "A hint" });
+  res.render("card", {
+    prompt: "Who is burried",
+    hint: "A hint"
+  });
 });
 
 app.listen(3000, () => {
