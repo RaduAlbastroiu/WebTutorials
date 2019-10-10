@@ -17,6 +17,14 @@ app.get("/cards", (req, res) => {
   });
 });
 
+app.get("/hello", (req, res) => {
+  res.render("hello");
+});
+
+app.post("/hello", (req, res) => {
+  // not yet
+});
+
 app.listen(3000, () => {
   console.log("The application is working on port 3000");
 });
