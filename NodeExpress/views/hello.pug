@@ -1,7 +1,10 @@
 extends layout.pug
 
 block content
-  h2 Welcome sudent!
+  if name
+    h2 Welcome #{name}
+  else
+    h2 Welcome sudent!
   form(action='/hello', method='post')
     label Please enter your name:
       input(type='text', name='username')

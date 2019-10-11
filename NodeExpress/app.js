@@ -1,9 +1,9 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
 
-const colors = ["red", "orange", "yellow", "green", "blue", "purple"];
-
+app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "pug");
 
 app.get("/", (req, res) => {
@@ -22,7 +22,7 @@ app.get("/hello", (req, res) => {
 });
 
 app.post("/hello", (req, res) => {
-  // not yet
+  res.render("hello", { name: req.body.username });
 });
 
 app.listen(3000, () => {
