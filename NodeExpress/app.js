@@ -10,9 +10,7 @@ app.set("view engine", "pug");
 
 app.use((req, res, next) => {
   console.log("Hello");
-  const err = new Error("Oh no!");
-  err.status = 500;
-  next(err);
+  next();
 });
 
 app.use((req, res, next) => {
@@ -53,6 +51,12 @@ app.post("/hello", (req, res) => {
 app.post("/goodbye", (req, res) => {
   res.clearCookie("username");
   res.redirect("/hello");
+});
+
+app.use((req, res, next) => {
+  const err = new Error("Not found");
+  err.status = 404;
+  next(err);
 });
 
 app.use((err, req, res, next) => {
