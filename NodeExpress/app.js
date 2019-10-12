@@ -9,7 +9,12 @@ app.use(cookieParser());
 app.set("view engine", "pug");
 
 app.get("/", (req, res) => {
-  res.render("index");
+  const name = req.cookies.username;
+  if (name) {
+    res.render("index", { name });
+  } else {
+    res.redirect("/hello");
+  }
 });
 
 app.get("/cards", (req, res) => {
@@ -20,12 +25,22 @@ app.get("/cards", (req, res) => {
 });
 
 app.get("/hello", (req, res) => {
-  res.render("hello", { name: req.cookies.username });
+  const name = req.cookies.username;
+  if (name) {
+    res.redirect("/");
+  } else {
+    res.render("hello");
+  }
 });
 
 app.post("/hello", (req, res) => {
   res.cookie("username", req.body.username);
-  res.render("hello", { name: req.body.username });
+  res.redirect("/");
+});
+
+app.post("/goodbye", (req, res) => {
+  res.clearCookie("username");
+  res.redirect("/hello");
 });
 
 app.listen(3000, () => {
