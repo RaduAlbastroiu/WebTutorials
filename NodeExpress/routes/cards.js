@@ -5,7 +5,7 @@ const cards = data.cards;
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  const questionId = Math.floor(Math.random() * 5);
+  const questionId = Math.floor(Math.random() * cards.length);
   res.redirect(`/cards/${questionId}?side=question`);
 });
 
