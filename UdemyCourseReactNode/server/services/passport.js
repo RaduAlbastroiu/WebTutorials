@@ -30,9 +30,7 @@ passport.use(
           done(null, existingUser);
         } else {
           // not in database yet
-          new User({
-            googleId: profile.id
-          })
+          new User({ googleId: profile.id })
             .save()
             .then(user => done(null, user));
         }
