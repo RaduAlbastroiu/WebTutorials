@@ -10,7 +10,7 @@ class Payments extends Component {
         name="Emaily"
         description="$$$"
         amount={499}
-        token={token => this.props.handle(token)}
+        token={token => this.props.handleToken(token)}
         // it is a public key, should be in env
         stripeKey={'pk_test_HkKV4H0AnGWpjeJQaXvH1vhA00bCJJ8K9x'}
       >
